@@ -88,7 +88,6 @@ if (!$currentAdmin && !empty($admins)) {
     <div class="page-header">
         <div>
             <h1 class="page-title">Pengaturan Akun</h1>
-            <p class="page-description">Kelola profil pengguna administrator dan kredensial login operasional FAM Parfum (Tabel <code>admin</code>).</p>
         </div>
         <div class="page-actions">
             <button type="button" class="btn btn-secondary" onclick="openModal('modalTambahAdmin')">
@@ -110,7 +109,6 @@ if (!$currentAdmin && !empty($admins)) {
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <i data-lucide="user" style="color: var(--primary); width: 18px; height: 18px;"></i>
                     <span>Informasi Profil Admin</span>
                 </h3>
             </div>
@@ -135,18 +133,15 @@ if (!$currentAdmin && !empty($admins)) {
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="margin-top: 8px;">
-                        <i data-lucide="save"></i>
                         <span>Simpan Profil</span>
                     </button>
                 </form>
             </div>
         </div>
 
-        <!-- Ubah Password Form -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <i data-lucide="lock" style="color: var(--primary); width: 18px; height: 18px;"></i>
                     <span>Perbarui Kata Sandi</span>
                 </h3>
             </div>
@@ -170,7 +165,6 @@ if (!$currentAdmin && !empty($admins)) {
                     </div>
 
                     <button type="submit" class="btn btn-secondary">
-                        <i data-lucide="key"></i>
                         <span>Perbarui Kata Sandi</span>
                     </button>
                 </form>
@@ -201,7 +195,7 @@ if (!$currentAdmin && !empty($admins)) {
                     <tbody>
                         <?php foreach ($admins as $adm): ?>
                         <tr>
-                            <td>#<?= $adm['id_admin'] ?></td>
+                            <td><?= $adm['id_admin'] ?></td>
                             <td>
                                 <strong><?= htmlspecialchars($adm['nama']) ?></strong>
                             </td>

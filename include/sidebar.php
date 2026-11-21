@@ -25,11 +25,11 @@ if (empty($initials)) $initials = 'AD';
     <!-- Brand / Logo -->
     <div class="sidebar-brand">
         <div class="brand-icon">
-            <i data-lucide="package-search"></i>
+            <img src="assets/img/logofam.jpeg" alt="logo" style="width: 100%; border-radius:50% ">
         </div>
         <div class="brand-info">
             <span class="brand-title">FAM Parfum</span>
-            <span class="brand-subtitle">SPK MOORA Logistik</span>
+            <span class="brand-subtitle">SPK JASA PENGIRIMAN</span>
         </div>
     </div>
 

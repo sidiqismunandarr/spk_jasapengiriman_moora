@@ -52,11 +52,8 @@ if ($selectedTgl) {
     <div class="page-header">
         <div>
             <h1 class="page-title">Riwayat Perhitungan</h1>
-            <p class="page-description">Arsip log dan catatan riwayat analisis penentuan jasa pengiriman FAM Parfum berdasarkan tanggal perhitungan (<code>tgl_hitung</code>).</p>
-        </div>
         <div class="page-actions">
             <a href="index.php?page=proses" class="btn btn-primary">
-                <i data-lucide="play"></i>
                 <span>Hitung Siklus Baru</span>
             </a>
         </div>
@@ -70,12 +67,10 @@ if ($selectedTgl) {
     <?php endif; ?>
 
     <div style="display: grid; grid-template-columns: 1.1fr 2fr; gap: 24px;">
-        <!-- Left: Daftar Tanggal Perhitungan -->
         <div class="card" style="margin-bottom: 0;">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="calendar" style="color: var(--primary); width: 18px; height: 18px;"></i>
                         <span>Siklus Perhitungan Tersimpan</span>
                     </h3>
                     <div class="card-subtitle">Pilih tanggal untuk melihat arsip perankingan</div>
@@ -107,7 +102,7 @@ if ($selectedTgl) {
                                     </a>
                                 </td>
                                 <td style="text-align: center;">
-                                    <span class="badge badge-rank-other"><?= $h['total_alt'] ?> Ekspedisi</span>
+                                    <span><?= $h['total_alt'] ?> Ekspedisi</span>
                                 </td>
                                 <td style="text-align: center;">
                                     <div style="display: flex; gap: 4px; justify-content: center;">
@@ -143,7 +138,6 @@ if ($selectedTgl) {
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="file-text" style="color: var(--primary); width: 18px; height: 18px;"></i>
                         <span>Detail Hasil: <?= $selectedTgl ? formatTanggalIndo($selectedTgl) : '-' ?></span>
                     </h3>
                     <div class="card-subtitle">
@@ -167,7 +161,7 @@ if ($selectedTgl) {
                                 <th style="width: 80px; text-align: center;">Peringkat</th>
                                 <th style="width: 110px;">Kode</th>
                                 <th>Nama Ekspedisi</th>
-                                <th style="text-align: right; width: 140px;">Skor MOORA ($Y_i$)</th>
+                                <th style="text-align: right; width: 140px;">Skor MOORA</th>
                                 <th style="width: 160px;">Status</th>
                             </tr>
                         </thead>
@@ -177,15 +171,7 @@ if ($selectedTgl) {
                             ?>
                             <tr class="<?= $isFirst ? 'highlight-rank-1' : '' ?>">
                                 <td style="text-align: center;">
-                                    <?php if ($row['ranking'] == 1): ?>
-                                        <span class="badge badge-rank-1">Rank 1</span>
-                                    <?php elseif ($row['ranking'] == 2): ?>
-                                        <span class="badge badge-rank-2">Rank 2</span>
-                                    <?php elseif ($row['ranking'] == 3): ?>
-                                        <span class="badge badge-rank-3">Rank 3</span>
-                                    <?php else: ?>
-                                        <span style="font-weight: 600; color: var(--text-muted);">#<?= $row['ranking'] ?></span>
-                                    <?php endif; ?>
+                                    <span style="font-weight: 600; color: var(--text-muted);"><?= $row['ranking'] ?></span>
                                 </td>
                                 <td><strong>A<?= $row['id_alternatif'] ?></strong></td>
                                 <td>
@@ -197,10 +183,12 @@ if ($selectedTgl) {
                                 <td>
                                     <?php if ($row['ranking'] == 1): ?>
                                         <span class="badge badge-rank-1">Rekomendasi Utama</span>
-                                    <?php elseif ($row['ranking'] <= 3): ?>
+                                    <?php elseif ($row['ranking'] <= 10): ?>
                                         <span class="badge badge-benefit">Direkomendasikan</span>
+                                    <?php elseif ($row['ranking'] <= 25): ?>
+                                        <span class="badge badge-benefit">Cukup</span>
                                     <?php else: ?>
-                                        <span class="badge badge-rank-other">Alternatif</span>
+                                        <span class="badge badge-cost">Tidak direkomendasikan</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>

@@ -1,9 +1,4 @@
 <?php
-/**
- * Halaman Cetak Laporan Hasil Perankingan MOORA
- * SPK Pemilihan Jasa Pengiriman MOORA - FAM Parfum
- */
-
 $moora = new MooraHelper($pdo);
 $tglFilter = isset($_GET['tgl']) ? cleanInput($_GET['tgl']) : null;
 $rankings = $moora->getStoredRanking($tglFilter);
@@ -61,8 +56,6 @@ $kriteriaList = $pdo->query("SELECT * FROM kriteria ORDER BY id_kriteria ASC")->
         .kop-logo {
             width: 70px;
             height: 70px;
-            border-radius: 12px;
-            background: #0F172A;
             color: #FFFFFF;
             display: flex;
             align-items: center;
@@ -144,9 +137,14 @@ $kriteriaList = $pdo->query("SELECT * FROM kriteria ORDER BY id_kriteria ASC")->
             font-weight: 600;
         }
 
-        .badge-win {
-            background: #DCFCE7;
-            color: #166534;
+        .badge-benefit {
+        background: #ECFDF5;
+        color: #065F46;
+        }
+
+        .badge-cost {
+        background: #FEF2F2;
+        color: #991B1B;
         }
 
         /* Recommendation Box */
@@ -161,8 +159,8 @@ $kriteriaList = $pdo->query("SELECT * FROM kriteria ORDER BY id_kriteria ASC")->
 
         /* Signature block */
         .ttd-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: block;
+            justify-items: right;
             margin-top: 40px;
             padding-top: 20px;
         }
@@ -239,11 +237,10 @@ $kriteriaList = $pdo->query("SELECT * FROM kriteria ORDER BY id_kriteria ASC")->
     <div class="print-sheet">
         <!-- Kop Surat -->
         <div class="kop-surat">
-            <div class="kop-logo">FAM</div>
+            <div class="kop-logo"><img src="./assets/img/logofam.jpeg" style="width: 100%; border-radius: 50%" alt="Logo"></div>
             <div class="kop-text">
                 <h2>FAM PARFUM INDONESIA</h2>
-                <p>E-Commerce & Retail Fragrance Logistics Department</p>
-                <p>Jl. Melati Raya No. 45, Jakarta | Email: contact@famparfum.com | Telp: (021) 789-2341</p>
+                <p>Jl. Buni GG. Mawar RT 08/04,Kel. Munjul, Kec. Cipayung, Jakarta </p>
             </div>
         </div>
 
@@ -309,11 +306,13 @@ $kriteriaList = $pdo->query("SELECT * FROM kriteria ORDER BY id_kriteria ASC")->
                     </td>
                     <td style="text-align: center;">
                         <?php if ($row['ranking'] == 1): ?>
-                            <span class="badge badge-win">Sangat Direkomendasikan</span>
-                        <?php elseif ($row['ranking'] <= 3): ?>
-                            <span class="badge" style="background: #E0E7FF; color: #3730A3;">Direkomendasikan</span>
+                            <span class="badge badge-benefit">Sangat Direkomendasikan</span>
+                        <?php elseif ($row['ranking'] <= 10): ?>
+                            <span class="badge badge-benefit">Direkomendasikan</span>
+                        <?php elseif ($row['ranking'] <= 25): ?>
+                            <span class="badge badge-benefit">Cukup</span>
                         <?php else: ?>
-                            <span class="badge" style="background: #F1F5F9; color: #475569;">Alternatif Cadangan</span>
+                            <span class="badge badge-cost">Tidak direkomendasikan</span>
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -351,19 +350,10 @@ $kriteriaList = $pdo->query("SELECT * FROM kriteria ORDER BY id_kriteria ASC")->
         <!-- Lembar Pengesahan / Tanda Tangan -->
         <div class="ttd-grid">
             <div class="ttd-box">
-                <div>Mengetahui,</div>
-                <div style="font-weight: 600;">Kepala Gudang & Logistik</div>
+                <div>Jakarta, <?= formatTanggalIndo($tglHitung) ?></div>
                 <div class="ttd-space"></div>
-                <div class="ttd-name">Rian Pratama, S.Log.</div>
-                <div style="font-size: 11.5px; color: #64748B;">NIP: FAM-2022-094</div>
-            </div>
-
-            <div class="ttd-box">
-                <div>Ditetapkan di Jakarta, <?= formatTanggalIndo($tglHitung) ?></div>
-                <div style="font-weight: 600;">Direktur Operasional FAM Parfum</div>
-                <div class="ttd-space"></div>
-                <div class="ttd-name">Fajar Maulana, S.M.</div>
-                <div style="font-size: 11.5px; color: #64748B;">Founder & Managing Director</div>
+                <div class="ttd-name">Ari Wahyudi, S.Kom</div>
+                <div style="font-size: 11.5px; color: #64748B;">Owner FAM Parfum</div>
             </div>
         </div>
     </div>

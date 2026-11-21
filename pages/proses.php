@@ -38,18 +38,15 @@ $totalBobot = $res['totalBobot'] ?? 100;
     <div class="page-header">
         <div>
             <h1 class="page-title">Proses MOORA</h1>
-            <p class="page-description">Tahapan matematis algoritma Multi-Objective Optimization on the basis of Ratio Analysis secara transparan.</p>
         </div>
         <div class="page-actions">
             <form method="POST" style="margin: 0;">
                 <input type="hidden" name="action" value="save_ranking">
                 <button type="submit" class="btn btn-primary">
-                    <i data-lucide="save"></i>
                     <span>Simpan & Perbarui Ranking ke Database</span>
                 </button>
             </form>
             <a href="index.php?page=ranking" class="btn btn-secondary">
-                <i data-lucide="award"></i>
                 <span>Lihat Hasil Akhir</span>
             </a>
         </div>
@@ -68,52 +65,46 @@ $totalBobot = $res['totalBobot'] ?? 100;
             <div class="step-number">1</div>
             <div>
                 <div style="font-weight: 600;">Matriks Keputusan</div>
-                <div style="font-size: 11px;">Nilai Mentah ($X$)</div>
+                <div style="font-size: 11px;">Nilai Mentah</div>
             </div>
         </div>
         <div class="step-item" data-step="2" onclick="switchMooraStep(2)">
             <div class="step-number">2</div>
             <div>
                 <div style="font-weight: 600;">Normalisasi Matriks</div>
-                <div style="font-size: 11px;">Rasio Pembagi ($R$)</div>
+                <div style="font-size: 11px;">Rasio Pembagi</div>
             </div>
         </div>
         <div class="step-item" data-step="3" onclick="switchMooraStep(3)">
             <div class="step-number">3</div>
             <div>
                 <div style="font-weight: 600;">Matriks Terbobot</div>
-                <div style="font-size: 11px;">Normalisasi & Bobot ($Y$)</div>
+                <div style="font-size: 11px;">Normalisasi & Bobot</div>
             </div>
         </div>
         <div class="step-item" data-step="4" onclick="switchMooraStep(4)">
             <div class="step-number">4</div>
             <div>
                 <div style="font-weight: 600;">Nilai Optimasi</div>
-                <div style="font-size: 11px;">Benefit - Cost ($Y_i$)</div>
+                <div style="font-size: 11px;">Benefit - Cost</div>
             </div>
         </div>
         <div class="step-item" data-step="5" onclick="switchMooraStep(5)">
             <div class="step-number">5</div>
             <div>
                 <div style="font-weight: 600;">Perankingan Akhir</div>
-                <div style="font-size: 11px;">Tabel `ranking`</div>
+                <div style="font-size: 11px;">Tabel ranking</div>
             </div>
         </div>
     </div>
 
-    <!-- ==================== TAHAP 1: MATRIKS KEPUTUSAN (X) ==================== -->
     <div class="moora-step-content" data-step="1">
         <div class="card">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="grid" style="color: var(--primary); width: 18px; height: 18px;"></i>
-                        <span>1. Matriks Keputusan ($X$)</span>
+                        <span>1. Matriks Keputusan</span>
                     </h3>
-                    <div class="card-subtitle">Menampilkan nilai mentah dari tabel <code>alternatif</code> berdasarkan <code>id_kriteria</code> dan <code>id_ekspedisi</code></div>
-                </div>
-                <div style="font-size: 12.5px; color: var(--text-muted);">
-                    Formula: $X = [x_{ij}]_{m \times n}$
                 </div>
             </div>
             <div class="card-body">
@@ -127,7 +118,7 @@ $totalBobot = $res['totalBobot'] ?? 100;
                                 <th style="text-align: center;">
                                     <?= htmlspecialchars($k['kode_kriteria']) ?>
                                     <div style="font-size: 10.5px; font-weight: normal; color: var(--text-muted);"><?= htmlspecialchars($k['nama_kriteria']) ?></div>
-                                    <span class="badge <?= strtolower($k['jenis']) == 'cost' ? 'badge-cost' : 'badge-benefit' ?>" style="font-size: 10px;">
+                                    <span style="font-size: 10px;">
                                         <?= htmlspecialchars($k['jenis']) ?> (<?= $k['bobot'] ?>%)
                                     </span>
                                 </th>
@@ -170,10 +161,8 @@ $totalBobot = $res['totalBobot'] ?? 100;
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="divide" style="color: var(--primary); width: 18px; height: 18px;"></i>
-                        <span>2. Normalisasi Matriks ($R$)</span>
+                        <span>2. Normalisasi Matriks</span>
                     </h3>
-                    <div class="card-subtitle">Perhitungan akar dari jumlah kuadrat nilai per kriteria: $r_{ij} = \frac{x_{ij}}{\sqrt{\sum_{i=1}^m x_{ij}^2}}$</div>
                 </div>
             </div>
             <div class="card-body">
@@ -211,8 +200,8 @@ $totalBobot = $res['totalBobot'] ?? 100;
                         </tbody>
                         <tfoot>
                             <tr style="background: var(--bg-subtle); font-weight: 600;">
-                                <td colspan="2" style="text-align: right;">
-                                    Pembagi $\sqrt{\sum x_{ij}^2}$:
+                                <td colspan="2" style="text-align: left;">
+                                    Denominator (Pembagi)
                                 </td>
                                 <?php foreach ($kriteriaList as $k): 
                                     $idK = $k['id_kriteria'];
@@ -239,19 +228,13 @@ $totalBobot = $res['totalBobot'] ?? 100;
         </div>
     </div>
 
-    <!-- ==================== TAHAP 3: MATRIKS TERBOBOT (Y) ==================== -->
     <div class="moora-step-content" data-step="3" style="display: none;">
         <div class="card">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="scale" style="color: var(--primary); width: 18px; height: 18px;"></i>
-                        <span>3. Matriks Ternormalisasi Terbobot ($Y$)</span>
+                        <span>3. Matriks Ternormalisasi Terbobot</span>
                     </h3>
-                    <div class="card-subtitle">Perkalian elemen matriks normalisasi dengan bobot kriteria: $y_{ij} = r_{ij} \times W_j$</div>
-                </div>
-                <div style="font-size: 12.5px; color: var(--text-muted);">
-                    Total Bobot: <strong><?= $totalBobot ?>%</strong>
                 </div>
             </div>
             <div class="card-body">
@@ -265,9 +248,9 @@ $totalBobot = $res['totalBobot'] ?? 100;
                                     $idK = $k['id_kriteria'];
                                 ?>
                                 <th style="text-align: center;">
-                                    <?= htmlspecialchars($k['kode_kriteria']) ?> (W=<?= number_format($weights[$idK] ?? 0, 2) ?>)
+                                    <?= htmlspecialchars($k['kode_kriteria']) ?>
                                     <div style="font-size: 10.5px; font-weight: normal; color: var(--text-muted);"><?= htmlspecialchars($k['nama_kriteria']) ?></div>
-                                    <span class="badge <?= strtolower($k['jenis']) == 'cost' ? 'badge-cost' : 'badge-benefit' ?>" style="font-size: 9.5px;">
+                                    <span style="font-size: 9.5px;">
                                         <?= htmlspecialchars($k['jenis']) ?>
                                     </span>
                                 </th>
@@ -308,16 +291,13 @@ $totalBobot = $res['totalBobot'] ?? 100;
         </div>
     </div>
 
-    <!-- ==================== TAHAP 4: NILAI OPTIMASI (Yi) ==================== -->
     <div class="moora-step-content" data-step="4" style="display: none;">
         <div class="card">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="calculator" style="color: var(--primary); width: 18px; height: 18px;"></i>
-                        <span>4. Nilai Optimasi MOORA ($Y_i$)</span>
+                        <span>4. Nilai Optimasi MOORA</span>
                     </h3>
-                    <div class="card-subtitle">Pengurangan total nilai kriteria <em>Benefit</em> dengan kriteria <em>Cost</em>: $Y_i = \sum_{j \in Benefit} y_{ij} - \sum_{j \in Cost} y_{ij}$</div>
                 </div>
             </div>
             <div class="card-body">
@@ -327,9 +307,9 @@ $totalBobot = $res['totalBobot'] ?? 100;
                             <tr>
                                 <th style="width: 70px;">Kode</th>
                                 <th>Alternatif Jasa Pengiriman</th>
-                                <th style="text-align: right; width: 180px;">Total Benefit ($\sum y_{benefit}$)</th>
-                                <th style="text-align: right; width: 180px;">Total Cost ($\sum y_{cost}$)</th>
-                                <th style="text-align: right; width: 220px;">Nilai Optimasi ($Y_i$)</th>
+                                <th style="text-align: right; width: 180px;">Total Benefit</th>
+                                <th style="text-align: right; width: 180px;">Total Cost</th>
+                                <th style="text-align: right; width: 220px;">Nilai Optimasi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -343,7 +323,7 @@ $totalBobot = $res['totalBobot'] ?? 100;
                                 <td style="text-align: right; font-family: monospace; color: var(--danger); font-weight: 600;">
                                     <?= number_format($r['sum_cost'], 4) ?>
                                 </td>
-                                <td style="text-align: right; font-family: monospace; font-size: 14px; font-weight: 700; color: var(--primary);">
+                                <td style="text-align: right; font-family: monospace; font-size: 14px; font-weight: 700;">
                                     <?= number_format($r['skor_optimasi'], 4) ?>
                                 </td>
                             </tr>
@@ -371,15 +351,12 @@ $totalBobot = $res['totalBobot'] ?? 100;
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="award" style="color: var(--primary); width: 18px; height: 18px;"></i>
                         <span>5. Hasil Perankingan Akhir</span>
                     </h3>
-                    <div class="card-subtitle">Pemetaan skor optimasi $Y_i$ ke tabel perankingan (Tabel <code>ranking</code>)</div>
                 </div>
                 <form method="POST" style="margin: 0;">
                     <input type="hidden" name="action" value="save_ranking">
                     <button type="submit" class="btn btn-success btn-sm">
-                        <i data-lucide="check" style="width: 14px; height: 14px;"></i>
                         <span>Terapkan & Simpan Hasil Ini</span>
                     </button>
                 </form>
@@ -392,7 +369,7 @@ $totalBobot = $res['totalBobot'] ?? 100;
                                 <th style="width: 90px; text-align: center;">Peringkat</th>
                                 <th style="width: 120px;">Kode Alternatif</th>
                                 <th>Nama Jasa Pengiriman</th>
-                                <th style="text-align: right; width: 180px;">Skor Optimasi MOORA ($Y_i$)</th>
+                                <th style="text-align: right; width: 180px;">Skor Optimasi MOORA</th>
                                 <th style="width: 220px;">Status Rekomendasi</th>
                             </tr>
                         </thead>
@@ -402,33 +379,27 @@ $totalBobot = $res['totalBobot'] ?? 100;
                             ?>
                             <tr class="<?= $isFirst ? 'highlight-rank-1' : '' ?>">
                                 <td style="text-align: center;">
-                                    <?php if ($r['ranking'] == 1): ?>
-                                        <span class="badge badge-rank-1">Rank 1</span>
-                                    <?php elseif ($r['ranking'] == 2): ?>
-                                        <span class="badge badge-rank-2">Rank 2</span>
-                                    <?php elseif ($r['ranking'] == 3): ?>
-                                        <span class="badge badge-rank-3">Rank 3</span>
-                                    <?php else: ?>
-                                        <span style="font-weight: 600; color: var(--text-muted);">#<?= $r['ranking'] ?></span>
-                                    <?php endif; ?>
+                                    <span style="font-weight: 600;"><?= $r['ranking'] ?></span>
                                 </td>
                                 <td><strong>A<?= $idE ?></strong></td>
                                 <td>
                                     <strong><?= htmlspecialchars($r['nama']) ?></strong>
                                     <?php if ($isFirst): ?>
-                                        <span style="font-size: 11px; color: var(--success); font-weight: 600; margin-left: 6px;">(Rekomendasi Utama FAM Parfum)</span>
+                                        <span style="font-size: 11px; color: var(--success); font-weight: 600; margin-left: 6px;"></span>
                                     <?php endif; ?>
                                 </td>
-                                <td style="text-align: right; font-family: monospace; font-size: 14px; font-weight: 700; color: <?= $isFirst ? '#065F46' : 'var(--primary)' ?>;">
+                                <td style="text-align: center; font-family: monospace; font-size: 14px; font-weight: 700; color: <?= $isFirst ? '#065F46' : 'var(--primary)' ?>;">
                                     <?= number_format($r['skor_optimasi'], 4) ?>
                                 </td>
                                 <td>
                                     <?php if ($r['ranking'] == 1): ?>
                                         <span class="badge badge-rank-1">Sangat Direkomendasikan</span>
-                                    <?php elseif ($r['ranking'] <= 3): ?>
+                                    <?php elseif ($r['ranking'] <= 10): ?>
                                         <span class="badge badge-benefit">Direkomendasikan</span>
+                                    <?php elseif ($r['ranking'] <= 25): ?>
+                                        <span class="badge badge-benefit">Cukup</span>
                                     <?php else: ?>
-                                        <span class="badge badge-rank-other">Alternatif Cadangan</span>
+                                        <span class="badge badge-cost">Tidak direkomendasikan</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>

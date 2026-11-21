@@ -62,7 +62,6 @@ $ekspedisiList = $stmt->fetchAll();
     <div class="page-header">
         <div>
             <h1 class="page-title">Data Jasa Pengiriman</h1>
-            <p class="page-description">Kelola data mitra jasa ekspedisi/kurir yang dievaluasi untuk pengiriman FAM Parfum (Tabel <code>ekspedisi</code>).</p>
         </div>
         <div class="page-actions">
             <button type="button" class="btn btn-primary" onclick="openModal('modalTambah')">
@@ -83,10 +82,8 @@ $ekspedisiList = $stmt->fetchAll();
         <div class="card-header">
             <div>
                 <h3 class="card-title">
-                    <i data-lucide="truck" style="color: var(--primary); width: 18px; height: 18px;"></i>
                     <span>Daftar Ekspedisi Terdaftar</span>
                 </h3>
-                <div class="card-subtitle">Total: <?= count($ekspedisiList) ?> Mitra Jasa Pengiriman</div>
             </div>
             <div class="search-input-wrap">
                 <i data-lucide="search" class="search-icon"></i>
@@ -114,7 +111,7 @@ $ekspedisiList = $stmt->fetchAll();
                             $hasRatings = ($cntStmt->fetchColumn() > 0);
                         ?>
                         <tr>
-                            <td>#<?= $row['id_ekspedisi'] ?></td>
+                            <td><?= $row['id_ekspedisi'] ?></td>
                             <td>
                                 <span style="font-family: monospace; font-weight: 600; padding: 2px 8px; background: var(--bg-subtle); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                                     A<?= $row['id_ekspedisi'] ?>
@@ -122,7 +119,6 @@ $ekspedisiList = $stmt->fetchAll();
                             </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 8px;">
-                                    <i data-lucide="package" style="width: 16px; height: 16px; color: var(--primary);"></i>
                                     <strong style="font-size: 14px; color: var(--text-heading);">
                                         <?= htmlspecialchars($row['nama']) ?>
                                     </strong>

@@ -73,7 +73,6 @@ foreach ($kriteriaList as $k) {
     <div class="page-header">
         <div>
             <h1 class="page-title">Data Kriteria Penilaian</h1>
-            <p class="page-description">Kelola bobot dan jenis kriteria (Benefit / Cost) untuk penentuan jasa pengiriman terbaik FAM Parfum (Tabel <code>kriteria</code>).</p>
         </div>
         <div class="page-actions">
             <button type="button" class="btn btn-primary" onclick="openModal('modalTambahKriteria')">
@@ -93,23 +92,12 @@ foreach ($kriteriaList as $k) {
     <!-- Status Bobot Info Bar -->
     <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
         <div style="display: flex; align-items: center; gap: 14px;">
-            <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: <?= $totalBobot == 100 ? 'var(--success-bg)' : 'var(--warning-bg)' ?>; color: <?= $totalBobot == 100 ? 'var(--success)' : 'var(--warning)' ?>; display: flex; align-items: center; justify-content: center;">
-                <i data-lucide="<?= $totalBobot == 100 ? 'check-circle-2' : 'alert-circle' ?>"></i>
-            </div>
             <div>
                 <div style="font-size: 14px; font-weight: 600; color: var(--text-heading);">
                     Akumulasi Total Bobot Kriteria: 
                     <span style="color: <?= $totalBobot == 100 ? 'var(--success)' : 'var(--warning)' ?>;"><?= $totalBobot ?>%</span>
                 </div>
-                <div style="font-size: 12px; color: var(--text-muted);">
-                    <?= $totalBobot == 100 ? 'Distribusi bobot kriteria sudah sempurna (100%).' : 'Disarankan total bobot berjumlah 100% untuk proporsi standar.' ?>
-                </div>
             </div>
-        </div>
-
-        <div style="display: flex; gap: 10px;">
-            <span class="badge badge-cost">Cost = Minimal</span>
-            <span class="badge badge-benefit">Benefit = Maksimal</span>
         </div>
     </div>
 
@@ -117,12 +105,9 @@ foreach ($kriteriaList as $k) {
         <div class="card-header">
             <div>
                 <h3 class="card-title">
-                    <i data-lucide="sliders" style="color: var(--primary); width: 18px; height: 18px;"></i>
                     <span>Tabel Kriteria Penilaian MOORA</span>
                 </h3>
-                <div class="card-subtitle">Daftar variabel penentu keputusan logistik FAM Parfum</div>
             </div>
-            <span class="badge badge-rank-other">Total: <?= count($kriteriaList) ?> Kriteria</span>
         </div>
 
         <div class="card-body" style="padding: 0;">
@@ -134,8 +119,7 @@ foreach ($kriteriaList as $k) {
                             <th style="width: 120px;">Kode</th>
                             <th>Nama Kriteria</th>
                             <th style="width: 140px; text-align: center;">Bobot (%)</th>
-                            <th style="width: 160px; text-align: center;">Jenis Sifat</th>
-                            <th style="width: 180px;">Karakteristik Operasional</th>
+                            <th style="width: 160px; text-align: center;">Tipe</th>
                             <th style="width: 130px; text-align: center;">Aksi</th>
                         </tr>
                     </thead>
@@ -162,19 +146,10 @@ foreach ($kriteriaList as $k) {
                             </td>
                             <td style="text-align: center;">
                                 <?php if ($isCost): ?>
-                                    <span class="badge badge-cost">
-                                        <i data-lucide="arrow-down" style="width: 11px; height: 11px;"></i>
-                                        <span>Cost (Biaya)</span>
-                                    </span>
+                                        <span>Cost</span>
                                 <?php else: ?>
-                                    <span class="badge badge-benefit">
-                                        <i data-lucide="arrow-up" style="width: 11px; height: 11px;"></i>
-                                        <span>Benefit (Manfaat)</span>
-                                    </span>
+                                        <span>Benefit</span>
                                 <?php endif; ?>
-                            </td>
-                            <td style="font-size: 12px; color: var(--text-muted);">
-                                <?= $isCost ? 'Nilai semakin rendah semakin baik (biaya efisien)' : 'Nilai semakin tinggi semakin menguntungkan' ?>
                             </td>
                             <td style="text-align: center;">
                                 <div style="display: flex; gap: 6px; justify-content: center;">

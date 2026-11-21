@@ -1,9 +1,4 @@
 <?php
-/**
- * Logout Handler
- * SPK Pemilihan Jasa Pengiriman MOORA - FAM Parfum
- */
-
 session_start();
 
 // Unset all session variables

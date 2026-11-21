@@ -1,15 +1,9 @@
 <?php
-/**
- * Halaman Penilaian Alternatif
- * SPK Pemilihan Jasa Pengiriman MOORA - FAM Parfum
- */
-
 $alertMsg = '';
 $alertType = '';
 
-// Handle save matrix values
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'save_matrix') {
-    $ratings = $_POST['nilai'] ?? []; // format: [id_mitra => [id_kriteria => nilai]]
+    $ratings = $_POST['nilai'] ?? [];
 
     $pdo->beginTransaction();
     try {
@@ -56,11 +50,9 @@ foreach ($altRows as $row) {
     <div class="page-header">
         <div>
             <h1 class="page-title">Penilaian Alternatif</h1>
-            <p class="page-description">Input dan perbarui data nilai mentah evaluasi ekspedisi untuk setiap kriteria penilaian (Tabel <code>alternatif</code>).</p>
         </div>
         <div class="page-actions">
             <a href="index.php?page=proses" class="btn btn-secondary">
-                <i data-lucide="calculator"></i>
                 <span>Jalankan Perhitungan MOORA</span>
             </a>
         </div>
@@ -77,10 +69,8 @@ foreach ($altRows as $row) {
     <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 16px 20px; margin-bottom: 24px;">
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
             <div style="font-size: 13.5px; font-weight: 600; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="help-circle" style="width: 16px; height: 16px; color: var(--primary);"></i>
                 <span>Panduan Skala Penilaian Alternatif (Skala 1 - 5)</span>
             </div>
-            <span style="font-size: 12px; color: var(--text-muted);">Nilai standar operasional FAM Parfum</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; font-size: 12px;">
             <div style="padding: 8px 12px; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid #EF4444;">
@@ -113,13 +103,10 @@ foreach ($altRows as $row) {
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
-                        <i data-lucide="edit" style="color: var(--primary); width: 18px; height: 18px;"></i>
-                        <span>Matriks Nilai Evaluasi ($X$)</span>
+                        <span>Matriks Nilai Evaluasi</span>
                     </h3>
-                    <div class="card-subtitle">Ubah nilai penilaian langsung pada tabel dan klik tombol simpan</div>
                 </div>
                 <button type="submit" class="btn btn-primary">
-                    <i data-lucide="save"></i>
                     <span>Simpan Perubahan Matriks</span>
                 </button>
             </div>
@@ -135,9 +122,7 @@ foreach ($altRows as $row) {
                                 <th style="text-align: center; min-width: 140px;">
                                     <div style="font-weight: 700; color: var(--navy-dark);"><?= htmlspecialchars($k['kode_kriteria']) ?></div>
                                     <div style="font-size: 11px; font-weight: normal; color: var(--text-muted);"><?= htmlspecialchars($k['nama_kriteria']) ?></div>
-                                    <span class="badge <?= strtolower($k['jenis']) == 'cost' ? 'badge-cost' : 'badge-benefit' ?>" style="font-size: 9.5px; margin-top: 2px;">
                                         <?= htmlspecialchars($k['jenis']) ?> (<?= $k['bobot'] ?>%)
-                                    </span>
                                 </th>
                                 <?php endforeach; ?>
                             </tr>
@@ -187,9 +172,6 @@ foreach ($altRows as $row) {
             </div>
 
             <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 12.5px; color: var(--text-muted);">
-                    Data nilai yang tersimpan akan langsung dijadikan variabel perhitungan matriks keputusan metode MOORA.
-                </span>
                 <button type="submit" class="btn btn-primary">
                     <i data-lucide="check"></i>
                     <span>Simpan Nilai Alternatif</span>

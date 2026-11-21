@@ -1,9 +1,4 @@
 <?php
-/**
- * Halaman Dashboard Utama
- * SPK Pemilihan Jasa Pengiriman MOORA - FAM Parfum
- */
-
 $moora = new MooraHelper($pdo);
 $stats = $moora->getDashboardStats();
 $latestRanking = $moora->getStoredRanking();
@@ -26,51 +21,38 @@ if (empty($latestRanking)) {
     <div class="page-header">
         <div>
             <h1 class="page-title">Dashboard</h1>
-            <p class="page-description">Ringkasan data dan rekomendasi jasa pengiriman untuk operasional pengiriman barang FAM Parfum.</p>
         </div>
         <div class="page-actions">
             <a href="index.php?page=ranking" class="btn btn-primary">
-                <i data-lucide="award"></i>
                 <span>Lihat Hasil Perankingan</span>
             </a>
             <a href="index.php?page=proses" class="btn btn-secondary">
-                <i data-lucide="calculator"></i>
                 <span>Mulai Perhitungan</span>
             </a>
         </div>
     </div>
 
-    <!-- 4 Summary Cards -->
     <div class="stats-grid">
-        <!-- 1. Total Ekspedisi -->
         <div class="stat-card">
             <div>
                 <div class="stat-label">Total Ekspedisi</div>
                 <div class="stat-value"><?= number_format($stats['total_ekspedisi']) ?></div>
                 <div class="stat-subtext">
-                    <span style="color: var(--primary); font-weight: 600;">Alternatif aktif</span>
+                    <span style="color: var(--primary); font-weight: 600;">Alternatif</span>
                 </div>
-            </div>
-            <div class="stat-icon blue">
-                <i data-lucide="truck"></i>
             </div>
         </div>
 
-        <!-- 2. Total Kriteria -->
         <div class="stat-card">
             <div>
                 <div class="stat-label">Total Kriteria Penilaian</div>
                 <div class="stat-value"><?= number_format($stats['total_kriteria']) ?></div>
                 <div class="stat-subtext">
-                    <span style="color: var(--success); font-weight: 600;">Cost & Benefit</span>
+                    <span style="color: var(--primary); font-weight: 600;">Cost & Benefit</span>
                 </div>
-            </div>
-            <div class="stat-icon green">
-                <i data-lucide="sliders"></i>
             </div>
         </div>
 
-        <!-- 3. Perhitungan Terakhir -->
         <div class="stat-card">
             <div>
                 <div class="stat-label">Perhitungan Terakhir</div>
@@ -78,28 +60,20 @@ if (empty($latestRanking)) {
                     <?= $stats['tgl_hitung_terakhir'] ? formatTanggalIndo($stats['tgl_hitung_terakhir']) : 'Belum Ada' ?>
                 </div>
                 <div class="stat-subtext">
-                    <i data-lucide="calendar-check" style="width: 14px; height: 14px; color: var(--warning);"></i>
-                    <span>Siklus evaluasi terbaru</span>
+                    <span style="color: var(--primary); font-weight: 600;">Siklus evaluasi terbaru</span>
                 </div>
-            </div>
-            <div class="stat-icon amber">
-                <i data-lucide="history"></i>
             </div>
         </div>
 
-        <!-- 4. Peringkat 1 Saat Ini -->
         <div class="stat-card">
             <div>
-                <div class="stat-label">Alternatif Peringkat 1</div>
-                <div class="stat-value" style="font-size: 19px; padding-top: 4px; color: var(--primary);">
+                <div class="stat-label">Ranking</div>
+                <div class="stat-value" style="font-size: 19px; padding-top: 4px;">
                     <?= $topEkspedisi ? htmlspecialchars($topEkspedisi['nama_ekspedisi']) : 'Belum Ada' ?>
                 </div>
                 <div class="stat-subtext">
                     <span class="badge badge-rank-1">Rekomendasi Utama</span>
                 </div>
-            </div>
-            <div class="stat-icon purple">
-                <i data-lucide="trophy"></i>
             </div>
         </div>
     </div>
@@ -109,22 +83,18 @@ if (empty($latestRanking)) {
     <div class="hero-card">
         <div class="hero-grid">
             <div>
-                <div class="hero-badge-wrap">
-                    <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
-                    <span>Rekomendasi Utama Operasional FAM Parfum</span>
-                </div>
                 <h2 class="hero-title"><?= htmlspecialchars($topEkspedisi['nama_ekspedisi']) ?></h2>
                 <p class="hero-desc">
-                    Berdasarkan perhitungan matematis metode <strong>MOORA</strong>, jasa pengiriman <strong><?= htmlspecialchars($topEkspedisi['nama_ekspedisi']) ?></strong> memperoleh nilai optimasi tertinggi setelah mempertimbangkan biaya pengiriman (*cost*), ketepatan waktu pengantaran, keamanan handling cairan parfum (*fragile*), serta jangkauan area pengiriman.
+                    Berdasarkan perhitungan matematis metode <strong>MOORA</strong>, jasa pengiriman <strong><?= htmlspecialchars($topEkspedisi['nama_ekspedisi']) ?></strong> memperoleh nilai optimasi tertinggi setelah menghitung tiap kriteria.
                 </p>
 
                 <div class="hero-stats-row">
                     <div class="hero-stat-item">
                         <span class="hero-stat-label">Peringkat SPK</span>
-                        <span class="hero-stat-val" style="color: var(--success);">Rank 1</span>
+                        <span class="hero-stat-val" style="color: var(--primary);">Rank 1</span>
                     </div>
                     <div class="hero-stat-item">
-                        <span class="hero-stat-label">Skor Optimasi MOORA ($Y_i$)</span>
+                        <span class="hero-stat-label">Skor Optimasi</span>
                         <span class="hero-stat-val"><?= number_format($topEkspedisi['skor_optimasi'], 4) ?></span>
                     </div>
                     <div class="hero-stat-item">
@@ -155,17 +125,15 @@ if (empty($latestRanking)) {
     </div>
     <?php endif; ?>
 
-    <!-- Grid: Ringkasan 3 Besar & Informasi Kriteria Cepat -->
     <div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 24px;">
-        <!-- Tabel Ringkasan Peringkat (Top 3) -->
         <div class="card" style="margin-bottom: 0;">
             <div class="card-header">
                 <div>
                     <h3 class="card-title">
                         <i data-lucide="medal" style="color: var(--primary); width: 18px; height: 18px;"></i>
-                        <span>Pratinjau 3 Besar Alternatif Terbaik</span>
+                        <span>Top Five Best</span>
                     </h3>
-                    <div class="card-subtitle">Hasil evaluasi perankingan teratas metode MOORA</div>
+                    <div class="card-subtitle">Hasil evaluasi perankingan jasa pengiriman</div>
                 </div>
                 <a href="index.php?page=ranking" class="btn btn-secondary btn-sm">
                     <span>Lihat Semua</span>
@@ -179,7 +147,7 @@ if (empty($latestRanking)) {
                             <tr>
                                 <th style="width: 80px; text-align: center;">Peringkat</th>
                                 <th>Jasa Pengiriman</th>
-                                <th style="text-align: right;">Skor MOORA ($Y_i$)</th>
+                                <th style="text-align: right;">Skor MOORA</th>
                                 <th>Status Rekomendasi</th>
                             </tr>
                         </thead>
@@ -188,7 +156,7 @@ if (empty($latestRanking)) {
                             $count = 0;
                             foreach ($latestRanking as $row): 
                                 $count++;
-                                if ($count > 3) break;
+                                if ($count > 5) break;
                                 $isTop = ($row['ranking'] == 1);
                             ?>
                             <tr class="<?= $isTop ? 'highlight-rank-1' : '' ?>">
@@ -199,12 +167,15 @@ if (empty($latestRanking)) {
                                         <span class="badge badge-rank-2">Rank 2</span>
                                     <?php elseif ($row['ranking'] == 3): ?>
                                         <span class="badge badge-rank-3">Rank 3</span>
+                                    <?php elseif ($row['ranking'] == 4): ?>
+                                        <span class="badge badge-rank-3">Rank 4</span>
+                                    <?php elseif ($row['ranking'] == 5): ?>
+                                        <span class="badge badge-rank-3">Rank 5</span>
                                     <?php endif; ?>
                                 </td>
                                 <td>
                                     <strong><?= htmlspecialchars($row['nama_ekspedisi']) ?></strong>
                                     <?php if ($isTop): ?>
-                                        <span style="font-size: 11px; color: var(--success); font-weight: 600; margin-left: 6px;">★ Pilihan Terbaik</span>
                                     <?php endif; ?>
                                 </td>
                                 <td style="text-align: right; font-weight: 600; color: var(--primary);">
@@ -231,9 +202,6 @@ if (empty($latestRanking)) {
                 </div>
             </div>
             <div class="card-footer">
-                <span style="font-size: 12px; color: var(--text-muted);">
-                    Data diambil dari penilaian operasional terbaru FAM Parfum
-                </span>
                 <a href="index.php?page=proses" class="btn btn-primary btn-sm">
                     <i data-lucide="calculator" style="width: 14px; height: 14px;"></i>
                     <span>Hitung Ulang MOORA</span>
@@ -260,9 +228,6 @@ if (empty($latestRanking)) {
                             <span>Kriteria Cost (Biaya)</span>
                             <span class="badge badge-cost">Diminimalkan</span>
                         </div>
-                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-                            Biaya ongkos kirim per kg agar harga jual FAM Parfum tetap kompetitif.
-                        </div>
                     </div>
 
                     <div style="padding: 12px; background: var(--bg-subtle); border-radius: var(--radius-md); border-left: 4px solid var(--success);">
@@ -270,14 +235,11 @@ if (empty($latestRanking)) {
                             <span>Kriteria Benefit (Manfaat)</span>
                             <span class="badge badge-benefit">Dimaksimalkan</span>
                         </div>
-                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-                            Kecepatan sampai, perlindungan packing cairan, jangkauan ekspedisi, serta kemudahan pick-up barang.
-                        </div>
                     </div>
                 </div>
 
                 <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 12px; color: var(--text-muted);">Format Bobot:</span>
+                    <span style="font-size: 12px; color: var(--text-muted);">Format Bobot Harus </span>
                     <strong style="color: var(--text-heading); font-size: 12.5px;">100% Terdistribusi</strong>
                 </div>
             </div>

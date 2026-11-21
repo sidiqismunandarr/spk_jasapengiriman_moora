@@ -33,11 +33,6 @@ $headerAdminNama = isset($_SESSION['admin_nama']) ? $_SESSION['admin_nama'] : 'A
     </div>
 
     <div class="header-right">
-        <div class="header-badge">
-            <span class="dot"></span>
-            <span>MOORA Aktif</span>
-        </div>
-
         <div class="header-badge" style="background: #FFFFFF;">
             <i data-lucide="user" style="width: 14px; height: 14px; color: var(--primary);"></i>
             <span><?= htmlspecialchars($headerAdminNama) ?></span>

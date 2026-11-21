@@ -126,8 +126,6 @@ a:hover {
 .brand-icon {
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-md);
-  background: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,7 +133,6 @@ a:hover {
   font-weight: 700;
   font-size: 16px;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
 }
 
 .brand-info {

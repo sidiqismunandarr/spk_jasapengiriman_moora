@@ -1,11 +1,4 @@
 <?php
-/**
- * Sistem Pendukung Keputusan (SPK) Pemilihan Jasa Pengiriman
- * Metode MOORA - Bisnis Online FAM Parfum
- * 
- * Main Entry & Controller
- */
-
 session_start();
 
 require_once __DIR__ . '/include/koneksi.php';

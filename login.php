@@ -1,9 +1,4 @@
 <?php
-/**
- * Halaman Login Sistem Pendukung Keputusan (SPK) MOORA
- * Bisnis Online FAM Parfum
- */
-
 session_start();
 require_once __DIR__ . '/include/koneksi.php';
 
@@ -175,13 +170,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Brand Header -->
     <div class="login-brand-header">
         <div class="login-brand-logo">
-            <i data-lucide="package-search" style="width: 28px; height: 28px; color: #FFFFFF;"></i>
+            <img src="./assets/img/logoFam.jpeg" alt="Logo" width="100" height="100" style="border-radius: 50%;">
+            <!-- <i data-lucide="package-search" style="width: 28px; height: 28px; color: #FFFFFF;"></i> -->
         </div>
-        <h1 class="login-title">FAM Parfum</h1>
-        <p class="login-subtitle">
-            Sistem Pendukung Keputusan Pemilihan Jasa Pengiriman<br>
-            <strong>Metode MOORA</strong> (Multi-Objective Optimization by Ratio Analysis)
-        </p>
     </div>
 
     <!-- Login Card -->
@@ -236,15 +227,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span>Masuk ke Sistem SPK</span>
             </button>
         </form>
-
-        <!-- Demo Credentials Helper -->
-        <div class="demo-credentials-box">
-            <div style="font-weight: 600; color: var(--navy-dark); margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
-                <i data-lucide="key" style="width: 14px; height: 14px; color: var(--primary);"></i>
-                <span>Akses Akun Default:</span>
-            </div>
-            <div>Username: <code>admin</code> | Password: <code>admin123</code></div>
-        </div>
     </div>
 
     <!-- Login Footer -->
